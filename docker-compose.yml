@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  nodejs:
+    build: .docker/nodejs-ws
+    container_name: canvas-ws
+    command: "npm start"
+    volumes:
+      - ./server:/app
+    ports:
+      - "3000:3000"
