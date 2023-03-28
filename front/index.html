@@ -45,6 +45,9 @@
             let lastScrolledTop = 0;
 
             function handleMouseMove(e) {
+                xMousePos = e.pageX;
+                yMousePos = e.pageY;
+
                 socket.emit("mouseMove", {x:e.pageX, y:e.pageY});
             }
 
