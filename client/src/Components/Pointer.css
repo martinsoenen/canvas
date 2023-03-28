@@ -1,0 +1,12 @@
+.cursor {
+    position: absolute;
+}
+.cursor > img {
+    width: 18px;
+}
+.cursor > span {
+    background-color: lightgrey;
+    position: absolute;
+    transform: translateY(-50%);
+    white-space: nowrap
+}
