@@ -11,8 +11,7 @@ io.on("connection", (socket) => {
     console.log("✅ " + token)
 
     socket.on("mouseMove", (json) => {
-        socket.broadcast.emit("mouseMove", {token: token, coordinates: json})
-        console.log("mouseMove " + token + " | " + json.x + ";" + json.y)
+        socket.broadcast.emit("mouseMove", {token: token, pseudo: json.pseudo, coordinates: json.coordinates})
     })
 
     socket.on("disconnect", () => {

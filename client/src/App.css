@@ -1,5 +1,22 @@
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*  .App-logo {*/
-/*    animation: App-logo-spin infinite 20s linear;*/
-/*  }*/
-/*}*/
+.btn {
+    background-color: #FFFFFF;
+    border-color: #5079ff;
+    border-radius: 0.5rem;
+    color: #1E40AF;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    padding: 0.625rem 1.25rem;
+    text-align: center;
+}
+.btn:hover {
+    background-color: #1E40AF;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #1D4ED8;
+    color: #ffffff;
+}

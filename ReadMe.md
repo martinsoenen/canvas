@@ -1,11 +1,12 @@
 # Canvas
-
-Fun project to challenge myself on React and more globally in JS.
+Fun project to test some things, challenge myself on React and more globally in JS :) Website that display the cursors of every user in the page. Soon we'll be able to draw on the page
 
 ## Installation
 
-To launch the project, just use [Docker Compose](https://docs.docker.com/compose/).  
-When containers are launched, the React page is displayed in the port `80` and the WebSocket is in the port `3000`.
+- Build the Docker containers using [Docker Compose](https://docs.docker.com/compose/)
+- Launch it
+- Open the URL (http://localhost) on your browser
+- Here it is :tada:
 
 ## Architecture of the project
 

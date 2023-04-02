@@ -5,7 +5,7 @@ import React from 'react';
 
 function Pointer(props) {
     return (
-        <div className="cursor" style={{
+        <div className="cursor" id={props.id} style={{
             position: 'absolute',
             left: props.x,
             top: props.y,
@@ -13,7 +13,7 @@ function Pointer(props) {
             width: '18px'
         }}>
             <PointerSvg />
-            <span>{props.id}</span>
+            <span>{props.pseudo}</span>
         </div>
     );
 }

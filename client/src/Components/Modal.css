@@ -1,0 +1,63 @@
+.modal {
+    align-items: center;
+    background-color: rgb(80, 80, 80);
+    background-color: rgba(0, 80, 126, 0.2);
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    overflow: auto;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    border: 1px solid rgb(0, 137, 217);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    padding: 3vh;
+    position: relative;
+    text-align: center;
+}
+.modal-content > h4 {
+    margin: 0;
+}
+
+.inputs-box {
+    display: flex;
+    gap: 1vw;
+}
+
+#pseudoInput {
+    background-color: #F9FAFB;
+    border-color: #D1D5DB;
+    border-radius: 0.5rem;
+    border-width: 1px;
+    color: #111827;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 0.625rem;
+}
+#pseudoInput:focus  {
+    border-color: #a4c8ff;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    right: 4%;
+    top: 4%;
+}
+.close:hover,
+.close:focus {
+    cursor: pointer;
+    color: #1E40AF;
+    text-decoration: none;
+}
