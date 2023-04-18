@@ -3,18 +3,20 @@ import './Modal.css';
 import React, {useEffect} from "react";
 
 function Modal(props) {
-    function onClick() {
+    const onSubmit = e => {
+        e.preventDefault();
+
         const pseudoInput = document.getElementById('pseudoInput');
         props.setPseudo(pseudoInput.value);
         props.setPseudoModalIsOpen(false);
     }
 
-    function onClose() {
+    const onClose = () => {
         props.setPseudoModalIsOpen(false);
     }
 
-    function onEscape(event) {
-        if (event.key === "Escape")
+    const onEscape = e => {
+        if (e.key === "Escape")
             props.setPseudoModalIsOpen(false);
     }
 
@@ -32,9 +34,9 @@ function Modal(props) {
                     <span className="close" onClick={() => onClose()}>&times;</span>
                 }
                 <h4>What is your nickname ?</h4>
-                <form className="inputs-box">
+                <form className="inputs-box" onSubmit={(e) => onSubmit(e)}>
                     <input type="text" id="pseudoInput" placeholder="Maverick"/>
-                    <input className="btn btn-primary" type="button" value="Ok" onClick={() => onClick()}/>
+                    <input className="btn btn-primary" type="submit" value="Ok"/>
                 </form>
             </div>
         </div>

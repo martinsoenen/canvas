@@ -23,7 +23,7 @@ function Canvas(props) {
             });
         });
 
-        socket.on('userDisconnect', function (token) {
+        socket.on('userDisconnect', (token) => {
             setCursors(cursors => {
                 const newCursors = { ...cursors };
                 delete newCursors[token];
@@ -36,14 +36,14 @@ function Canvas(props) {
         let lastScrolledLeft = 0;
         let lastScrolledTop = 0;
 
-        function handleMouseMove(e) {
+        const handleMouseMove = e => {
             xMousePos = e.pageX;
             yMousePos = e.pageY;
 
             sendMouseMove(e.pageX, e.pageY);
         }
 
-        function handleScroll() {
+        const handleScroll = () => {
             const scrolledLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0; // Multiple variables for multiple browsers
             const scrolledTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
@@ -56,7 +56,7 @@ function Canvas(props) {
             sendMouseMove(xMousePos, yMousePos);
         }
 
-        function sendMouseMove (x, y) {
+        const sendMouseMove = (x, y) => {
             if (!props.pseudoModalIsOpen)
                 socket.emit('mouseMove', { pseudo: props.pseudo, coordinates: {x: x, y: y} });
         }
