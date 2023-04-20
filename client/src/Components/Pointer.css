@@ -1,5 +1,6 @@
 .cursor {
     position: absolute;
+    transition: all 0.5s ease-out;
 }
 .cursor > img {
     width: 18px;

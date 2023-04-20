@@ -1,4 +1,28 @@
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
 .container {
     height: 2000px;
     width: 2000px;
+}
+
+.color-picker-div {
+    position: absolute;
+    z-index: 1;
+}
+
+.color-picker-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.chrome-picker {
+    position: relative;
+    margin: 2% 20%;
 }
