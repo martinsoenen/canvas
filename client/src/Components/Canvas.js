@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Pointer from './Pointer';
 import {socket} from "../socket";
 import {ChromePicker} from "react-color";
+import {drawLine} from "../Functions/drawLine";
 
 function Canvas(props) {
     const [cursors, setCursors] = useState({});
@@ -28,6 +29,31 @@ function Canvas(props) {
                 }
             });
         });
+
+        socket.on('draw-line', ({prevPoint, currentPoint, color}) => {
+            const ctx = canvasRef.current?.getContext('2d');
+            if (!ctx) return;
+
+            drawLine({prevPoint, currentPoint, ctx, color});
+        })
+
+        socket.on('get-canvas-state', () => {
+            if (!canvasRef.current?.toDataURL()) return;
+
+            socket.emit('canvas-state', canvasRef.current.toDataURL());
+        })
+
+        socket.on('canvas-state-from-server', (state) => {
+            const ctx = canvasRef.current?.getContext('2d');
+
+            const img = new Image();
+            img.src = state;
+            img.onload = () => {
+                ctx?.drawImage(img, 0, 0)
+            }
+        })
+
+        socket.on('clear', clearCanvas)
 
         socket.on('userDisconnect', (token) => {
             setCursors(cursors => {
@@ -56,7 +82,7 @@ function Canvas(props) {
                 const ctx = canvasRef.current?.getContext('2d');
                 if (!ctx || !currentPoint) return;
 
-                drawLine(prevPoint.current, currentPoint, ctx)
+                createLine(prevPoint.current, currentPoint, ctx, color)
 
                 prevPoint.current = currentPoint
             }
@@ -81,6 +107,11 @@ function Canvas(props) {
             socket.emit('mouseMove', { pseudo: props.pseudo, coordinates: {x: x, y: y} });
         }
 
+        const createLine = (prevPoint, currentPoint, ctx, color) => {
+            socket.emit('draw-line', ({prevPoint, currentPoint, color}))
+            drawLine({prevPoint, currentPoint, ctx, color})
+        }
+
         // Event listeners
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -91,6 +122,13 @@ function Canvas(props) {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('mouseup', handleMouseUp);
+
+            socket.off('mouseMove')
+            socket.off('draw-line')
+            socket.off('get-canvas-state')
+            socket.off('canvas-state-from-server')
+            socket.off('clear')
+            socket.off('userDisconnect')
         };
 
     }, [props.pseudo, props.pseudoModalIsOpen, canvasRef, prevPoint, mouseDown, colorPickerIsOpen]);
@@ -114,25 +152,6 @@ function Canvas(props) {
         return {x, y};
     }
 
-    const drawLine = (prevPoint, currentPoint, ctx) => {
-        const lineColor = color;
-        const lineWidth = 5;
-
-        let startPoint = prevPoint ?? currentPoint;
-
-        ctx.beginPath()
-        ctx.lineWidth = lineWidth
-        ctx.strokeStyle = lineColor
-        ctx.moveTo(startPoint.x, startPoint.y)
-        ctx.lineTo(currentPoint.x, currentPoint.y)
-        ctx.stroke()
-
-        ctx.fillStyle = lineColor
-        ctx.beginPath()
-        ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI)
-        ctx.fill()
-    }
-
     const clearCanvas = () => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -149,7 +168,7 @@ function Canvas(props) {
                 <div>
                     <button className="btn btn-secondary" onClick={() => props.setPseudoModalIsOpen(true)}>Change nickname</button>
                     <button className="btn btn-secondary" onClick={() => setColorPickerIsOpen(true)}>Change color</button>
-                    <button className="btn btn-secondary" onClick={clearCanvas}>Clear canvas</button>
+                    <button className="btn btn-secondary" onClick={() => socket.emit('clear')}>Clear canvas</button>
                 </div>
             }
             {colorPickerIsOpen ?
