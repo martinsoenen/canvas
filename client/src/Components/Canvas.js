@@ -131,7 +131,7 @@ function Canvas(props) {
             socket.off('userDisconnect')
         };
 
-    }, [props.pseudo, props.pseudoModalIsOpen, canvasRef, prevPoint, mouseDown, colorPickerIsOpen]);
+    }, [props.pseudo, props.pseudoModalIsOpen, canvasRef, prevPoint, mouseDown, colorPickerIsOpen, color]);
 
     const handleMouseDown = () => setMouseDown(true);
 
@@ -163,9 +163,9 @@ function Canvas(props) {
     };
 
     return (
-        <div>
+        <>
             {!props.pseudoModalIsOpen &&
-                <div>
+                <div style={{"width": "fit-content", "display": "flex"}}>
                     <button className="btn btn-secondary" onClick={() => props.setPseudoModalIsOpen(true)}>Change nickname</button>
                     <button className="btn btn-secondary" onClick={() => setColorPickerIsOpen(true)}>Change color</button>
                     <button className="btn btn-secondary" onClick={() => socket.emit('clear')}>Clear canvas</button>
@@ -178,13 +178,13 @@ function Canvas(props) {
                 </div>
                 : null
             }
-            <canvas ref={canvasRef} onMouseDown={handleMouseDown} className="fixed" width={2000} height={2000} style={{zIndex:"-1"}}></canvas>
+            <canvas ref={canvasRef} className="fixed" width={2000} height={2000} style={{zIndex:"-1"}}></canvas>
             <div onMouseDown={handleMouseDown} className="fixed container" style={{zIndex:"-1"}}>
                 {Object.values(cursors).map(cursor => (
                     <Pointer key={cursor.id} id={cursor.id} x={cursor.x} y={cursor.y} colorNumber={cursor.colorNumber} pseudo={cursor.pseudo} />
                 ))}
             </div>
-        </div>
+        </>
     );
 }
 

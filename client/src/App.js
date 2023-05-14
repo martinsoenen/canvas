@@ -9,12 +9,12 @@ function App() {
     const [pseudoModalIsOpen, setPseudoModalIsOpen] = useState((!pseudo))
 
     return (
-        <div>
+        <>
             {pseudoModalIsOpen &&
                 <Modal pseudo={pseudo} setPseudo={setPseudo} setPseudoModalIsOpen={setPseudoModalIsOpen}/>
             }
             <Canvas pseudo={pseudo} setPseudo={setPseudo} pseudoModalIsOpen={pseudoModalIsOpen} setPseudoModalIsOpen={setPseudoModalIsOpen} />
-        </div>
+        </>
     );
 }
 

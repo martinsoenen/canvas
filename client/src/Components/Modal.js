@@ -35,7 +35,7 @@ function Modal(props) {
                 }
                 <h4>What is your nickname ?</h4>
                 <form className="inputs-box" onSubmit={(e) => onSubmit(e)}>
-                    <input type="text" id="pseudoInput" placeholder="Maverick"/>
+                    <input type="text" id="pseudoInput" placeholder="Maverick" autoFocus/>
                     <input className="btn btn-primary" type="submit" value="Ok"/>
                 </form>
             </div>
